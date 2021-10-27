@@ -56,7 +56,7 @@
             <video id="nebula" autoplay loop="true" crossorigin="anonymous" src="images/nebula.mp4"> </video>
             <video id="digital" autoplay loop="true" crossorigin="anonymous" src="images/digitaldesign.mp4"> </video>
             <video id="othernebula" autoplay loop="true" crossorigin="anonymous" src="images/othernebula.mp4"> </video>
-            <!-- <video id="hdmountain" autoplay loop="true" crossorigin="anonymous" src="images/hdmountain.mp4"> </video> -->
+            <video id="hdcompressedmountain" autoplay loop="true" crossorigin="anonymous" src="images/hdcompressedmountain.mp4"> </video>
             <!-- <video id="hdnebula" autoplay loop="true" crossorigin="anonymous" src="images/hdnebula.mov"> </video> -->
 
           </a-assets>
@@ -67,7 +67,7 @@
               animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
               animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade"></a-videosphere> -->
 
-          <a-videosphere id="image-360" src="#hdnebula"
+          <a-videosphere id="image-360" src="#hdcompressedmountain"
                  animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
                  animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade"></a-videosphere>
 
@@ -79,9 +79,9 @@
 
      
           <!-- do later: display image around current position -->
-          <!-- <a-entity id="links" layout="type: line; margin: 10" position="-1.5 0 -4" rotate="0 0 0">
+          <a-entity id="links" layout="type: line; margin: 10" position="-0 0 -5" rotate="0 0 0">
             <a-entity template="src: #link" data-src="#antarctica" data-thumb="#city-thumb"></a-entity>       
-          </a-entity> -->
+          </a-entity>
     
           <!-- Camera + cursor. -->
           <a-entity camera look-controls>
