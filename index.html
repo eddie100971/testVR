@@ -9,7 +9,19 @@
         <script src="https://unpkg.com/aframe-layout-component@5.3.0/dist/aframe-layout-component.min.js"></script>
         <script src="https://unpkg.com/aframe-template-component@3.2.1/dist/aframe-template-component.min.js"></script>
         <script src="https://unpkg.com/aframe-proxy-event-component@2.1.0/dist/aframe-proxy-event-component.min.js"></script>
-        
+        <script type="text/javascript">
+          AFRAME.registerComponent("visibility", {
+            init: function () {
+              var hints = document.querySelector('#links').sceneEl.querySelector("#links");
+              alert();
+              this.el.addEventListener("click", (e) => {
+                // const value = !hints.getAttribute('opacity');
+                alert('kek');
+                hints.setAttribute('material', {opacity: 0});
+              })
+            }
+          })
+        </script>
 
         <!-- <script id="outerFrame" type="text/html">
           <a-entity class="outerFrame"
@@ -32,11 +44,11 @@
         <script id="link" type="text/html">
           <a-entity class="link"
             geometry="primitive: plane; width: 6.75; height: 4.8;"
-            material="shader: flat; src: ${thumb}"
+            material="shader: flat; src: ${thumb}; transparent: true;"
             event-set__mouseleave="scale: 1 1 1"
             event-set__click="_target: #image-360; _delay: 300; material.src: ${src}"
             proxy-event="event: click; to: #image-360; as: fade"        
-            sound="on: click; src: #click-sound"></a-entity>
+            sound="off: click; src: #click-sound"></a-entity>
         </script>
       </head>
   <body>
@@ -44,7 +56,7 @@
         <a-assets>
             <img id="city" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/city.jpg">
             <img id="city-thumbnail" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-city.jpg">
-            <img id="city-thumb" crossorigin="anonymous" src="images/Background3.png">
+            <img id="dashboard" crossorigin="anonymous" src="images/Background3.png">
             <img id="next-background" crossorigin="anonymous" src="images/nextbackground.png">
             <img id="cubes-thumb" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg">
             <img id="sechelt-thumb" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-sechelt.jpg">
@@ -57,6 +69,7 @@
             <video id="digital" autoplay loop="true" crossorigin="anonymous" src="images/digitaldesign.mp4"> </video>
             <video id="othernebula" autoplay loop="true" crossorigin="anonymous" src="images/othernebula.mp4"> </video>
             <video id="hdcompressedmountain" autoplay loop="true" crossorigin="anonymous" src="images/hdcompressedmountain.mp4"> </video>
+            <!-- <video id="digitalwaves" autoplay loop="true" crossorigin="anonymous" src="images/DigitalWaves.mp4"> </video> -->
             <!-- <video id="hdnebula" autoplay loop="true" crossorigin="anonymous" src="images/hdnebula.mov"> </video> -->
 
           </a-assets>
@@ -67,7 +80,7 @@
               animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
               animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade"></a-videosphere> -->
 
-          <a-videosphere id="image-360" src="#hdcompressedmountain"
+          <a-videosphere id="image-360" src="#digital"
                  animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
                  animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade"></a-videosphere>
 
@@ -75,12 +88,10 @@
           <!-- data-thumb is the clickable image -->
           <!-- data-src determines what changes on click -->
           <!-- Image links. -->
-          
-
-     
+        
           <!-- do later: display image around current position -->
-          <a-entity id="links" layout="type: line; margin: 10" position="-0 0 -5" rotate="0 0 0">
-            <a-entity template="src: #link" data-src="#antarctica" data-thumb="#city-thumb"></a-entity>       
+          <a-entity id="links" layout="type: line; margin: 10" position="-0 0 -5" rotate="0 0 0" material="opacity: .05;">
+            <a-entity template="src: #link" data-src="#digital" data-thumb="#dashboard"></a-entity>       
           </a-entity>
     
           <!-- Camera + cursor. -->
