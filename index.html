@@ -1,109 +1,83 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Vybe</title>
-        <meta name="description" content="360&deg; Image Gallery - A-Frame">
-        <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-        <script src="https://unpkg.com/aframe-event-set-component@5/dist/aframe-event-set-component.min.js"></script>
-        <script src="https://unpkg.com/aframe-layout-component@5.3.0/dist/aframe-layout-component.min.js"></script>
-        <script src="https://unpkg.com/aframe-template-component@3.2.1/dist/aframe-template-component.min.js"></script>
-        <script src="https://unpkg.com/aframe-proxy-event-component@2.1.0/dist/aframe-proxy-event-component.min.js"></script>
-        <script type="text/javascript">
-          AFRAME.registerComponent("visibility", {
-            init: function () {
-              var hints = document.querySelector('#links').sceneEl.querySelector("#links");
-              alert();
-              this.el.addEventListener("click", (e) => {
-                // const value = !hints.getAttribute('opacity');
-                alert('kek');
-                hints.setAttribute('material', {opacity: 0});
-              })
-            }
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, height=device-height">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title>Vybe</title>
+
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+
+    <script type="text/javascript">
+      AFRAME.registerComponent("visibility", {
+        init: function () {
+          var hints = document.querySelector('a-scene').sceneEl.querySelector("#hints");
+          this.el.addEventListener("click", (e) => {
+            const value = !hints.getAttribute('visible');
+            hints.setAttribute('visible', value);
           })
-        </script>
+        }
+      })
 
-        <!-- <script id="outerFrame" type="text/html">
-          <a-entity class="outerFrame"
-            geometry="primitive: plane; width: 4.5; height: 3.2;"
-            material="shader: flat; src: ${thumb}"
-            event-set__mouseleave="scale: 1 1 1"
-            event-set__click="_target: #next_image; _delay: 300; material.src: ${src}"
-            proxy-event="event: click; to: #next_image; as: fade"        
-            sound="on: click; src: #click-sound"></a-entity>
-        </script> -->
+  //     AFRAME.registerComponent('audiohandler', {
+  //       init:function() {
+  //         let playing = false;
+  //         let audio = document.querySelector('a-scene').sceneEl.querySelector("#sound");
+  //         this.el.addEventListener('click', (e) => {
+  //               if(!playing) {
+  //                   audio.playSound();
+  //               } else {
+  //                   audio.pauseSound();
+  //                   audio.currentTime = 0;
+  //               }
+  //               playing = !playing;
+  //         });
+  // }
+// })
+    </script>
+  </head>
 
+  <body style="overflow: hidden;">
+  <a-scene id="app" renderer="colorManagement: true;" cursor="rayOrigin: mouse">
+    <a-assets timeout="30000">  
+        <video id="mountain" autoplay loop="true" crossorigin="anonymous" src="images/hdmountain.mp4"> </video>
+        <img id="dashboard" crossorigin="anonymous" src="images/Background3.png" material="transparent: true; opacity: 0.0">
+        <img id="playmusic" crossorigin="anonymous" src="images/songplay.png" material="transparent: true; opacity: 0.0">
+        <audio id="music" src="images/musicfile.mp3" preload="auto"></sound>
+      <img id="hints-button"
+           src="https://i.ibb.co/8Yhp4bJ/button1.png">      
+    </a-assets>
+    <!-- <a-camera position="0 1.2 0"></a-camera> -->
 
+    <a-videosphere id="image-360" src="#mountain"></a-videosphere>
+    <!-- <a-sound src="#music" autoplay=true></a-sound> -->
 
-        <!-- Image link template to be reused. -->
-        <!-- #image-360 is the link to changing background -->
+    <a-entity id="hints" visible="true" material="transparent: true;" visibility>
+      <a-entity id="homeHint" geometry="primitive: plane" position="0 -2 0" material="src: #dashboard; transparent: true; opacity: 0.0">
+        <a-plane id="clickthis" src="#dashboard" width= "6.75" height= "4.8" position="0 4 -5"></a-plane>
+        <a-plane id="clickthis" sound="src: url(images/musicfile.mp3); on: click" src="#playmusic" width= "6.75" height= "4.8" position="8 4 -2.5" rotation="0 -90 0"></a-plane>
+      </a-entity>    
+      
+    </a-entity>
+    <!-- <a-entity id="hints" visible="true" visibility>
+        <a-entity id="homeHint" geometry="primitive: plane" position="0 -2 0">
+            <a-plane id="clickthis" sound="src: url(images/musicfile.mp3); on: click" src="#playmusic" width= "6.75" height= "4.8" position="8 4 -2.5" rotation="0 -90 0"></a-plane>
+          </a-entity>   
+    </a-entity> -->
+  </a-scene>
 
-        <!-- insert below code for scale change on hover -->
-        <!-- event-set__mouseenter="scale: 1.2 1.2 1" -->
-        <!-- geometry="primitive: plane; width: 4.5; height: 3.2;" -->
-        <script id="link" type="text/html">
-          <a-entity class="link"
-            geometry="primitive: plane; width: 6.75; height: 4.8;"
-            material="shader: flat; src: ${thumb}; transparent: true;"
-            event-set__mouseleave="scale: 1 1 1"
-            event-set__click="_target: #image-360; _delay: 300; material.src: ${src}"
-            proxy-event="event: click; to: #image-360; as: fade"        
-            sound="off: click; src: #click-sound"></a-entity>
-        </script>
-      </head>
-  <body>
-    <a-scene>
-        <a-assets>
-            <img id="city" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/city.jpg">
-            <img id="city-thumbnail" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-city.jpg">
-            <img id="dashboard" crossorigin="anonymous" src="images/Background3.png">
-            <img id="next-background" crossorigin="anonymous" src="images/nextbackground.png">
-            <img id="cubes-thumb" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg">
-            <img id="sechelt-thumb" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-sechelt.jpg">
-            <audio id="click-sound" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
-            <img id="cubes" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/cubes.jpg">
-            <img id="sechelt" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg">
+  <a-entity camera look-controls >
+    <a-cursor
+      id="cursor"
+      animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+      animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+      event-set__mouseenter="_event: mouseenter; color: springgreen"
+      event-set__mouseleave="_event: mouseleave; color: black"
+      raycaster="objects: .link"></a-cursor>
+  </a-entity>
 
-            <video id="antarctica" autoplay loop="true" crossorigin="anonymous" src="images/videosphere.mp4"> </video>
-            <video id="nebula" autoplay loop="true" crossorigin="anonymous" src="images/nebula.mp4"> </video>
-            <video id="digital" autoplay loop="true" crossorigin="anonymous" src="images/digitaldesign.mp4"> </video>
-            <video id="othernebula" autoplay loop="true" crossorigin="anonymous" src="images/othernebula.mp4"> </video>
-            <video id="hdcompressedmountain" autoplay loop="true" crossorigin="anonymous" src="images/hdcompressedmountain.mp4"> </video>
-            <!-- <video id="digitalwaves" autoplay loop="true" crossorigin="anonymous" src="images/DigitalWaves.mp4"> </video> -->
-            <!-- <video id="hdnebula" autoplay loop="true" crossorigin="anonymous" src="images/hdnebula.mov"> </video> -->
-
-          </a-assets>
-    
-          <!-- 360-degree image. -->
-<!-- 
-          <a--entity id="otherFrame" src="#city-thumb"
-              animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
-              animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade"></a-videosphere> -->
-
-          <a-videosphere id="image-360" src="#digital"
-                 animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
-                 animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade"></a-videosphere>
-
-          <!-- src: link is the javascript -->
-          <!-- data-thumb is the clickable image -->
-          <!-- data-src determines what changes on click -->
-          <!-- Image links. -->
-        
-          <!-- do later: display image around current position -->
-          <a-entity id="links" layout="type: line; margin: 10" position="-0 0 -5" rotate="0 0 0" material="opacity: .05;">
-            <a-entity template="src: #link" data-src="#digital" data-thumb="#dashboard"></a-entity>       
-          </a-entity>
-    
-          <!-- Camera + cursor. -->
-          <a-entity camera look-controls>
-            <a-cursor
-              id="cursor"
-              animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
-              animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
-              event-set__mouseenter="_event: mouseenter; color: springgreen"
-              event-set__mouseleave="_event: mouseleave; color: black"
-              raycaster="objects: .link"></a-cursor>
-          </a-entity>
-    </a-scene>
   </body>
 </html>
+
